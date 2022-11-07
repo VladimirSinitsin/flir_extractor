@@ -4,6 +4,7 @@ import shutil
 import numpy as np
 import tifffile as tiff
 
+from glob import glob
 from tqdm import tqdm
 
 from fe_tools.seq import Seq
@@ -12,14 +13,11 @@ from fe_tools.fff_tools import get_thermal_image_vis_gray
 
 
 def main():
-    main_dir = "/data/sinitsin/erg_kz/1_day"
-    seq_id = 0
-    seq_files = sorted(os.listdir(main_dir))
-    for seq_file in seq_files:
-        if seq_file.endswith(".seq"):
-            seq_id += 1
-            print(f"Extracting {seq_file} ({seq_id}/{len(seq_files)}):")
-            extract_seq_gray(f"{main_dir}/{seq_file}")
+    main_dir = "erg_kz/1_day"
+    seq_files = sorted(glob(f"{main_dir}/*.seq"))
+    for seq_id, seq_path in enumerate(seq_files):
+        print(f"Extracting {seq_path.split('/')[-1]} ({seq_id + 1}/{len(seq_files)}):")
+        extract_seq_gray(seq_path)
 
 
 def extract_seq_gray(seq_path: str) -> None:
