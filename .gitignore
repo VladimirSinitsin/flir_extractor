@@ -4,5 +4,6 @@ __pycache__
 .python-version
 
 examples/
+erg_kz/
 
 *.seq
