@@ -13,7 +13,7 @@ from fe_tools.fff_tools import get_thermal_image_vis_gray
 
 
 def main():
-    main_dir = "/data/sinitsin/erg_kz/1_day"
+    main_dir = "erg_kz/1_day"
     seq_files = sorted(glob(f"{main_dir}/*.seq"))
     for seq_id, seq_path in enumerate(seq_files):
         print(f"Extracting {seq_path.split('/')[-1]} ({seq_id + 1}/{len(seq_files)}):")
@@ -21,7 +21,7 @@ def main():
 
 
 def extract_seq_gray(seq_path: str) -> None:
-    folder = seq_path.split(".")[0]
+    folder = os.path.join(os.path.dirname(seq_path), "converted", os.path.basename(seq_path).split(".")[0])
     file_basename = os.path.basename(folder)
     make_empty_folder(folder)
     make_empty_folder(f"{folder}/fff_frames")
