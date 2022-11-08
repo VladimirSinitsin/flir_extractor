@@ -52,7 +52,7 @@ def get_thermal_image(fff_img_filename: str, is_kelvin: bool = True) -> np.ndarr
             _extract_float(meta['ReflectedApparentTemperature']),
     )
 
-    thermal_np = thermal_np if is_kelvin else thermal_np - np.min(thermal_np)
+    thermal_np = thermal_np - np.min(thermal_np) if is_kelvin else thermal_np
 
     return thermal_np
 

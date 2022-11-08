@@ -53,7 +53,8 @@ def extract_seq_gray(seq_path: str) -> None:
 
         # Save thermal frame as .tif
         tiff_path = f"{folder}/{file_basename}_{frame_id:04d}.tiff"
-        tiff.imwrite(tiff_path, thermal_image, photometric="minisblack")
+        tiff_img = np.clip(thermal_image, 473.15, 1500.0)
+        tiff.imwrite(tiff_path, tiff_img, photometric="minisblack")
 
     # Remove all .fff files
     shutil.rmtree(f"{folder}/fff_frames")
