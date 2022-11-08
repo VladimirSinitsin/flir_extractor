@@ -36,7 +36,7 @@ def extract_seq_gray(seq_path: str) -> None:
 
         # Get thermal image from .fff file
         try:
-            thermal_image = get_thermal_image(fff_path)
+            thermal_image = get_thermal_image(fff_path, is_kelvin=True)
         except Exception as e:
             print(f"Error: {e}")
             continue
@@ -53,7 +53,7 @@ def extract_seq_gray(seq_path: str) -> None:
 
         # Save thermal frame as .tif
         tiff_path = f"{folder}/{file_basename}_{frame_id:04d}.tiff"
-        tiff.imwrite(tiff_path, gray_img, photometric="minisblack")
+        tiff.imwrite(tiff_path, thermal_image, photometric="minisblack")
 
     # Remove all .fff files
     shutil.rmtree(f"{folder}/fff_frames")
