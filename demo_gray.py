@@ -49,7 +49,7 @@ def extract_seq_gray(seq_path: str) -> None:
 
         # Save thermal frame as .jpg
         jpg_path = f"{folder}/{file_basename}_{frame_id:04d}.jpg"
-        cv2.imwrite(jpg_path, gray_img, cv2.IMWRITE_PAM_FORMAT_GRAYSCALE)
+        cv2.imwrite(jpg_path, gray_img)
 
         # Save thermal frame as .tif
         tiff_path = f"{folder}/{file_basename}_{frame_id:04d}.tiff"
