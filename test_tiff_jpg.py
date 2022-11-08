@@ -15,11 +15,11 @@ def main():
         print(f"Comparing {jpg_path.split('/')[-1]} and {tiff_path.split('/')[-1]}:")
         jpg_img = cv2.imread(jpg_path, cv2.IMREAD_GRAYSCALE)
         tiff_img = tiff.imread(tiff_path)
-        if not np.all(abs(jpg_img - tiff_img) > DIFF_THRESHOLD):
+        if not np.all(np.abs(jpg_img - tiff_img) > DIFF_THRESHOLD):
             print(f"Shape of jpg_img: {jpg_img.shape}")
             print(f"Shape of tiff_img: {tiff_img.shape}")
             diff_img = cv2.cvtColor(jpg_img, cv2.COLOR_GRAY2BGR)
-            diff_img[np.where(abs(jpg_img - tiff_img) > DIFF_THRESHOLD)] = np.array([0, 0, 255])
+            diff_img[np.where(np.abs(jpg_img - tiff_img) > DIFF_THRESHOLD)] = np.array([0, 0, 255])
             images = np.concatenate(
                     (
                         cv2.cvtColor(jpg_img, cv2.COLOR_GRAY2BGR),
