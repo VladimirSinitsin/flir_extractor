@@ -45,13 +45,15 @@ def extract_seq_gray(seq_path: str) -> None:
         # Add thermal image to tensor (for writing to .npz or .npy)
         thermal_tensor.append(thermal_image)
 
+        gray_img = get_thermal_image_vis_gray(thermal_image)
+
         # Save thermal frame as .jpg
         jpg_path = f"{folder}/{file_basename}_{frame_id:04d}.jpg"
-        cv2.imwrite(jpg_path, get_thermal_image_vis_gray(thermal_image))
+        cv2.imwrite(jpg_path, gray_img, cv2.IMWRITE_PAM_FORMAT_GRAYSCALE)
 
         # Save thermal frame as .tif
         tiff_path = f"{folder}/{file_basename}_{frame_id:04d}.tiff"
-        tiff.imwrite(tiff_path, thermal_image, photometric="minisblack")
+        tiff.imwrite(tiff_path, gray_img, photometric="minisblack")
 
     # Remove all .fff files
     shutil.rmtree(f"{folder}/fff_frames")
