@@ -16,7 +16,7 @@ def main():
     main_dir = "/data/sinitsin/erg_kz/1_day"
     seq_files = sorted(glob(f"{main_dir}/*.seq"))
     if len(seq_files) == 0:
-        main_dir = "erg_kz/1_day"
+        main_dir = "erg_kz"
         seq_files = sorted(glob(f"{main_dir}/*.seq"))
     for seq_id, seq_path in enumerate(seq_files):
         print(f"Extracting {seq_path.split('/')[-1]} ({seq_id + 1}/{len(seq_files)}):")
@@ -28,7 +28,6 @@ def extract_seq_gray(seq_path: str) -> None:
     file_basename = os.path.basename(folder)
     make_empty_folder(folder)
     make_empty_folder(f"{folder}/fff_frames")
-    # make_empty_folder(f"{folder}/thermal_frames")
 
     thermal_tensor = []
     for frame_id, frame_bytes in enumerate(tqdm(Seq(seq_path))):
@@ -39,7 +38,7 @@ def extract_seq_gray(seq_path: str) -> None:
 
         # Get thermal image from .fff file
         try:
-            thermal_image = get_thermal_image(fff_path, is_kelvin=True)
+            thermal_image = get_thermal_image(fff_path, is_kelvin=False)
         except Exception as e:
             print(f"Error: {e}")
             continue
@@ -56,7 +55,8 @@ def extract_seq_gray(seq_path: str) -> None:
 
         # Save thermal frame as .tif
         tiff_path = f"{folder}/{file_basename}_{frame_id:04d}.tiff"
-        tiff_img = np.clip(thermal_image, 473.15, 1500.0)
+        # tiff_img = np.clip(thermal_image, 473.15, 1500.0)
+        tiff_img = np.clip(thermal_image, 0.0, 500.0)
         tiff.imwrite(tiff_path, tiff_img, photometric="minisblack")
 
     # Remove all .fff files
