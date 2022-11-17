@@ -16,7 +16,7 @@ def main():
     print("Thermal image (Kelvin):")
     print(thermal_image)
 
-    thermal_image = get_thermal_image(fff_image, is_kelvin=False)
+    thermal_image = get_thermal_image(fff_image, is_celsius=False)
     print("Thermal image (Celsius):")
     print(thermal_image)
 

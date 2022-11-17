@@ -32,11 +32,11 @@ def get_raw_image_np(fff_img_filename: str) -> np.ndarray:
     return thermal_np
 
 
-def get_thermal_image(fff_img_filename: str, is_kelvin: bool = True) -> np.ndarray:
+def get_thermal_image(fff_img_filename: str, is_celsius: bool = True) -> np.ndarray:
     """
     Get the temperature image from the fff image
     :param fff_img_filename: path to image
-    :param is_kelvin: temperature in Kelvin (-273.15 relative to Celsius)
+    :param is_celsius: if the temperature on the image in celsius
     :return:
     """
     meta = get_meta(fff_img_filename)
@@ -51,8 +51,8 @@ def get_thermal_image(fff_img_filename: str, is_kelvin: bool = True) -> np.ndarr
             meta['Emissivity'],
             _extract_float(meta['ReflectedApparentTemperature']),
     )
-
-    thermal_np = thermal_np if is_kelvin else thermal_np - np.min(thermal_np)
+    # Convert to Celsius
+    thermal_np = thermal_np - np.min(thermal_np) if not is_celsius else thermal_np
 
     return thermal_np
 
