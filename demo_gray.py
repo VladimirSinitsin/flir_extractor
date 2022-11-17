@@ -38,7 +38,7 @@ def extract_seq_gray(seq_path: str) -> None:
 
         # Get thermal image from .fff file
         try:
-            thermal_image = get_thermal_image(fff_path, is_kelvin=False)
+            thermal_image = get_thermal_image(fff_path, is_celsius=False)
         except Exception as e:
             print(f"Error: {e}")
             continue
