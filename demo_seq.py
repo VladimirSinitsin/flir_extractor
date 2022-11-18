@@ -9,10 +9,11 @@ from fe_tools.seq import Seq
 from fe_tools.fff_tools import get_raw_image_np
 from fe_tools.fff_tools import get_thermal_image
 from fe_tools.fff_tools import get_thermal_image_vis
+from fe_tools.fff_tools import get_thermal_image_vis_gray
 
 
 def main():
-    seq_path = "examples/SEQ_0102.seq"
+    seq_path = "erg_kz/1 day/SEQ_0936.seq"
     folder = seq_path.split(".")[0]
     make_empty_folder(folder)
     make_empty_folder(f"{folder}/fff_frames")
@@ -31,7 +32,7 @@ def main():
         result_tensor_th.append(thermal_image)
         result_tensor_raw.append(raw_image)
 
-        cv2.imwrite(f"{folder}/thermal_frames/{frame_id}.jpg", get_thermal_image_vis(thermal_image))
+        cv2.imwrite(f"{folder}/thermal_frames/{frame_id}.png", get_thermal_image_vis(thermal_image))
 
     result_tensor_th = np.array(result_tensor_th)
     result_tensor_raw = np.array(result_tensor_raw)

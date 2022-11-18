@@ -82,3 +82,12 @@ def get_thermal_image_vis(thermal_np: np.ndarray) -> np.ndarray:
     thermal_np = (thermal_np / np.max(thermal_np) * 255).astype("uint8")
     thermal_img_vis[:, :, 2] = thermal_np
     return thermal_img_vis
+
+
+def get_thermal_image_vis_gray(thermal_np: np.ndarray, min_thr: float, max_thr: float) -> np.ndarray:
+    th_np = thermal_np.copy()
+    # th_np -= np.min(th_np)
+    # th_np -= 200
+    th_np = np.clip(th_np, min_thr, max_thr)
+    thermal_img_vis = (th_np / np.max(th_np) * 255).astype("uint8")
+    return thermal_img_vis
