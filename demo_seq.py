@@ -32,8 +32,7 @@ def main():
         result_tensor_th.append(thermal_image)
         result_tensor_raw.append(raw_image)
 
-        # cv2.imwrite(f"{folder}/thermal_frames/{frame_id}.png", get_thermal_image_vis(thermal_image))
-        cv2.imwrite(f"{folder}/thermal_frames/{frame_id}.png", get_thermal_image_vis_gray(thermal_image))
+        cv2.imwrite(f"{folder}/thermal_frames/{frame_id}.png", get_thermal_image_vis(thermal_image))
 
     result_tensor_th = np.array(result_tensor_th)
     result_tensor_raw = np.array(result_tensor_raw)
