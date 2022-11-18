@@ -40,10 +40,11 @@ def seq2jpg(seq_path: str, min_thr: float, max_thr: float, is_celsius: bool, is_
     make_empty_folder(folder, is_debug)
     make_empty_folder(f"{folder}/fff_frames", is_debug)
     make_empty_folder(f"{folder}/jpg_frames", is_debug)
-    fff_exists = os.listdir(f"{folder}/fff_frames") != []
 
+    seq_iterator = Seq(seq_path)
+    fff_exists = len(os.listdir(f"{folder}/fff_frames")) == len(seq_iterator)
     print(f"Extracting JPG from {seq_path}...")
-    for frame_id, frame_bytes in enumerate(tqdm(Seq(seq_path))):
+    for frame_id, frame_bytes in enumerate(tqdm(seq_iterator)):
         fff_path = f"{folder}/fff_frames/{frame_id:04d}.fff"
         if not fff_exists:
             # Write frame to .fff file
