@@ -47,7 +47,8 @@ def extract_seq_gray(seq_path: str) -> None:
         # Add thermal image to tensor (for writing to .npz or .npy)
         thermal_tensor.append(thermal_image)
 
-        gray_img = get_thermal_image_vis_gray(thermal_image)
+        gray_img = get_thermal_image_vis_gray(thermal_image, min_thr=200, max_thr=1000)
+        # gray_img = get_thermal_image_vis_gray(thermal_image, min_thr=0, max_thr=500, is_celsius=True)
 
         # Save thermal frame as .jpg
         jpg_path = f"{folder}/{file_basename}_{frame_id:04d}.jpg"
@@ -55,8 +56,8 @@ def extract_seq_gray(seq_path: str) -> None:
 
         # Save thermal frame as .tif
         tiff_path = f"{folder}/{file_basename}_{frame_id:04d}.tiff"
-        # tiff_img = np.clip(thermal_image, 473.15, 1500.0)
-        tiff_img = np.clip(thermal_image, 0.0, 500.0)
+        tiff_img = np.clip(thermal_image, 473.15, 1500.0)
+        # tiff_img = np.clip(thermal_image, 0.0, 500.0)
         tiff.imwrite(tiff_path, tiff_img, photometric="minisblack")
 
     # Remove all .fff files
