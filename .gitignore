@@ -3,7 +3,7 @@ __pycache__
 
 .python-version
 
-examples/
+bin/examples/
 erg_kz/
 
 *.seq

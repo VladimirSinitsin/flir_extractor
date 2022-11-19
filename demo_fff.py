@@ -6,7 +6,7 @@ from fe_tools.fff_tools import get_thermal_image_vis
 
 
 def main():
-    fff_image = "examples/frame.fff"
+    fff_image = "bin/examples/frame.fff"
 
     raw_image = get_raw_image_np(fff_image)
     print("Raw image:")
