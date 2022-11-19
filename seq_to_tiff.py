@@ -56,6 +56,13 @@ def seq2tiff(seq_path: str, min_thr: float, max_thr: float, is_celsius: bool, is
         # Get thermal image from .fff file
         try:
             thermal_image = get_thermal_image(fff_path, is_celsius=is_celsius)
+            if frame_id == 0:
+                ans = input(f"Temperature range is {np.min(thermal_image):.1f} - {np.max(thermal_image):.1f}. "
+                            f"Do you want to change the unit of measurement? "
+                            f"(current: {'celsius' if is_celsius else 'kelvin'})? [y/n]")
+                if ans == "y":
+                    is_celsius = not is_celsius
+                    thermal_image = get_thermal_image(fff_path, is_celsius=is_celsius)
         except Exception as e:
             print(f"Error: {e}")
             continue
